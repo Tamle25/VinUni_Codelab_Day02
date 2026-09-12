@@ -1,64 +1,29 @@
-# Lab 02 — Worksheet: AI Product Scoping (Vin Smart Future)
+# Phase 1 & 2 Deliverable — Problem Scan & Quick Cards (Vin Smart Future)
+
+**Họ và tên:** AI Product Engineer  
+**Đơn vị:** Vin Smart Future (Vingroup)  
+**Ngày thực hiện:** 2026-09-12  
 
 ---
 
-## 🏛️ 1. Bối cảnh thực tế: Vin Smart Future (Vingroup)
+## 🔍 Phase 1 — SCAN: Danh sách bài toán vận hành Vingroup
 
-**Vingroup** — Tập đoàn tư nhân lớn nhất Việt Nam — vừa sáp nhập toàn bộ các phòng ban công nghệ thuộc các công ty thành viên thành một đơn vị công nghệ thống nhất mang tên **Vin Smart Future**. 
+Sử dụng **4 Lenses** (*Lặp lại, Tốn thời gian, AI-upgrade, Pain từ người khác*) quét qua hoạt động của các công ty thành viên Vingroup:
 
-Nhiệm vụ của **Vin Smart Future** là xây dựng các giải pháp AI, số hóa, và tự động hóa cốt lõi để nâng cao hiệu suất vận hành và trải nghiệm khách hàng xuyên suốt các công ty thành viên:
-* 🚗 **VinFast:** Hệ thống xe điện thông minh (EV), trợ lý AI ảo trong xe, dự đoán bảo trì pin, và quản lý chuỗi cung ứng sản xuất.
-* 🚕 **Xanh SM (GSM):** Vận hành đội xe taxi/xe máy điện thông minh, điều vận thông minh (Smart Dispatching), tối ưu hóa lộ trình di chuyển.
-* 🏢 **Vinhomes:** Quản lý đô thị thông minh (Smart Cities), trợ lý cư dân thông minh, tối ưu hóa mức tiêu thụ năng lượng.
-* 🏥 **Vinmec:** Y tế thông minh, chẩn đoán hình ảnh bằng AI, tối ưu hóa quản lý hồ sơ bệnh án.
-* 🎢 **Vinpearl / VinWonders:** Trải nghiệm du lịch số hóa, quản lý phòng và luồng khách thông minh tại các khu vui chơi.
-
-Trong buổi Lab hôm nay, nhóm của bạn sẽ đóng vai trò là **AI Product Engineer** tại **Vin Smart Future**, tiến hành tìm kiếm, scoping, phân tích độ khả thi, thiết lập ranh giới vận hành, và xây dựng một **bản mẫu kỹ thuật (prompt prototype)** cho một bài toán cụ thể thuộc một trong những mảng kinh doanh trên.
-
----
-
-## 📊 2. Cơ cấu tính điểm bài lab
-
-### 👥 Điểm nhóm (60 điểm)
-
-| Gate | Điểm | Deliverable | Tiêu chí chấm |
-|---|---:|---|---|
-| **G1. Workflow Mapping** | 20 | Problem Deep-Dive | Vẽ chi tiết quy trình hiện tại: các bước, handoff, thời gian, bottleneck |
-| **G2. Problem Statement** | 20 | Problem Deep-Dive | Problem Statement 6-field bám sát thực tế, metric có số và ranh giới rõ ràng |
-| **G3. AI Fit & Future Flow** | 10 | Problem Deep-Dive | So sánh Rule vs LLM vs Agent, future flow có bước AI, ranh giới và Fallback |
-| **G4. Decision Quality** | 10 | Problem Deep-Dive | Quyết định Go/Not Yet/No-Go trung thực và có chứng cứ rõ ràng |
-
-### 👤 Điểm cá nhân (40 điểm)
-
-| Gate | Điểm | Deliverable | Tiêu chí chấm |
-|---|---:|---|---|
-| **I1. Scan & Cards** | 15 | Quick Cards | Liệt kê 5 problems sử dụng 3 lenses, hoàn thiện 3 quick cards chất lượng |
-| **I2. Prototyping** | 10 | 02-lab/ | Chạy thử nghiệm programmatic prompt prototype thành công |
-| **I3. AI Log & Reflection** | 15 | 03-ai-log.md | Phản ánh trung thực về việc dùng AI làm thought-partner (giúp gì, sai gì, sửa gì) |
-
----
-
-# 🚀 Phase 0 — worked Example: Xanh SM Intelligent Dispatcher (15 min)
-
-*Giảng viên walk-through ví dụ thực tế từ Vin Smart Future để bạn hiểu rõ cách scoping một bài toán AI.*
-Đọc chi tiết worked example tại file [02-deliverable-example.md](02-deliverable-example.md).
-
----
-
-# 🔍 Phase 1 — SCAN (Cá nhân, 20 min)
-
-### 📝 List bài toán của tôi:
-| # | Subsidiary (VinFast/Xanh SM...) | Lens | Mô tả ngắn bài toán |
-|---|----------------------------------|------|---------------------|
+| # | Công ty thành viên | Lens | Mô tả ngắn bài toán / Bottleneck vận hành |
+|---|--------------------|------|-------------------------------------------|
 | 1 | **Xanh SM (GSM)** | Tốn thời gian | Điều phối viên tra cứu thủ công vị trí xe và trạm sạc VinFast trống khi tài xế báo sự cố sạc/hết pin thực địa (mất 12-15 phút/lượt). |
 | 2 | **VinFast** | Lặp lại | So khớp dữ liệu sạc điện từ các trạm sạc đối tác ngoài với hóa đơn thanh toán hàng tuần (xử lý hàng nghìn dòng dữ liệu thủ công). |
 | 3 | **Vinhomes** | AI-upgrade | Phân loại tự động & định hướng khiếu nại cư dân trên App Vinhomes Resident (hiện tại CSKH phản hồi thủ công, chậm 8-12 tiếng). |
 | 4 | **Vinpearl** | Pain từ người khác | Tự động quét review từ Booking/Agoda/Google Maps để phát hiện các phàn nàn dịch vụ khẩn cấp (phòng bẩn, thái độ NV) gửi Manager. |
 | 5 | **Vinmec** | Tốn thời gian | Trích xuất thông tin bệnh án điện tử để draft Tóm tắt hồ sơ xuất viện (Discharge Summary) bằng ngôn ngữ dễ hiểu (bác sĩ mất 25 phút/bệnh nhân). |
+| 6 | **Xanh SM (GSM)** | Pain từ người khác | Tổng hợp & phân loại nguyên nhân hủy chuyến từ cuộc gọi ghi âm tổng đài để tìm pattern lỗi điều xe. |
 
 ---
 
-# 🃏 Phase 2 — QUICK-ASSESS (Cá nhân, 30 min)
+## 🃏 Phase 2 — QUICK-ASSESS: 3 Quick Problem Cards
+
+### 💳 QUICK PROBLEM CARD #1 — Xanh SM: Xử lý sự cố pin & điều phối cứu hộ thực địa
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
@@ -87,6 +52,10 @@ Trong buổi Lab hôm nay, nhóm của bạn sẽ đóng vai trò là **AI Produ
 └─────────────────────────────────────────────────────────────┘
 ```
 
+---
+
+### 💳 QUICK PROBLEM CARD #2 — Vinhomes: Trợ lý phân loại & phản hồi khiếu nại cư dân
+
 ```text
 ┌─────────────────────────────────────────────────────────────┐
 │ QUICK PROBLEM CARD #2                                       │
@@ -112,6 +81,10 @@ Trong buổi Lab hôm nay, nhóm của bạn sẽ đóng vai trò là **AI Produ
 │ Quick Architecture: [x] LLM Feature                         │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+### 💳 QUICK PROBLEM CARD #3 — Vinmec: Tự động hóa tóm tắt hồ sơ xuất viện (Discharge Summary)
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
@@ -139,55 +112,3 @@ Trong buổi Lab hôm nay, nhóm của bạn sẽ đóng vai trò là **AI Produ
 │ Quick Architecture: [x] LLM Feature với strict HITL         │
 └─────────────────────────────────────────────────────────────┘
 ```
-
----
-
-# 🏗️ Phase 3 — DEEP-DIVE (Nhóm, 85 min)
-
-## 3.1. Current-State Workflow Mapping (25 min)
-**Thời gian vận hành trung bình:** 15 phút/lượt.
-
-## 3.2. Problem Statement (6-field) & Metrics (15 min)
-
-| Field | Nội dung chi tiết |
-|---|---|
-| **1. Actor / Operator** | Điều phối viên (Dispatcher) thuộc Trung tâm Điều vận Xanh SM. |
-| **2. Current Workflow** | Khi tài xế báo hết pin, Dispatcher tra cứu vị trí GPS xe trên ứng dụng nội bộ, tìm trạm sạc VinFast trống phù hợp loại xe, soạn tin nhắn chỉ dẫn gửi App tài xế, và gọi xe cứu hộ nếu pin dưới 5%. 5 bước thủ công, mất 15 phút/lượt. |
-| **3. Bottleneck** | Bước 3 & 4 (mất 10 phút): Tra cứu trụ sạc trống theo thời gian thực và soạn tin nhắn hướng dẫn Tiếng Việt rõ ràng. |
-| **4. Business Impact** | Mỗi ngày có ~80 sự cố pin tại Hà Nội/TP.HCM. Lãng phí 20 giờ làm việc/ngày của team điều vận, tăng thời gian nằm chờ của tài xế, giảm 15% doanh thu khai thác. |
-| **5. Success Metric** | 1. Giảm tổng thời gian xử lý sự cố từ 15 min xuống dưới 3 min.<br>2. Tỉ lệ hướng dẫn đúng trạm sạc & đúng loại trụ đạt 98%. |
-| **6. Operational Boundary** | AI tự động pull vị trí GPS, tra trạm trống, draft SMS (`[DRAFT_ONLY]`). CẤM tự động gửi tin nhắn nếu chưa được Dispatcher duyệt (HITL). CẤM đề xuất trạm xa > 5km khi pin < 5% (phải tự động yêu cầu xe sạc cứu hộ di động). |
-
-## 3.3. Future-State Flow & AI Fit (25 min)
-* **Xác định mức AI Fit:** [x] LLM Feature
-* **Future-State Flow:**
-  - 🔵 **AI Step:** Auto-pull GPS, tìm trạm sạc trống và draft tin nhắn chỉ dẫn (`[DRAFT_ONLY]`).
-  - 🟢 **Human Step (HITL):** Dispatcher kiểm tra thông tin và click Phê duyệt để gửi tài xế.
-  - ↩️ **Fallback:** Nếu AI draft lỗi hoặc gặp case ngoại lệ, Dispatcher chuyển sang thao tác thủ công.
-
----
-
-# 💻 Phase 4 — TECHNICAL PROMPT PROTOTYPE (Nhóm, 30 min)
-
-Đã hoàn thành trong file `starter-code/prompt_prototype.py` sử dụng Gemini 3.6 Flash.
-Thử nghiệm Adversarial tests thành công 100%, bảo vệ an toàn cho cả quy tắc `[DRAFT_ONLY]` và quy tắc `dispatch_mobile_charger` khi pin < 5%.
-
----
-
-# 🏁 Phase 5 — EVALUATE (Nhóm, 20 min)
-
-### AI Readiness Checklist:
-1. [x] Chúng tôi có sẵn dữ liệu mẫu/logs sạch để test?
-2. [x] Rủi ro khi AI sai có nằm trong tầm kiểm soát (qua HITL hoặc Fallback)?
-3. [x] Stakeholders sẵn sàng thay đổi quy trình làm việc cũ?
-
-### Quyết định cuối cùng của Ban Giám Đốc Vin Smart Future:
-[x] **GO (Bắt đầu xây dựng Prototype):** Bắt đầu phát triển với scope hẹp.
-
-**Justification:**
-Dự án có bài toán rõ ràng, đo lường được hiệu quả số học (giảm từ 15m xuống <3m, tiết kiệm 17h/ngày), rủi ro an toàn được kiểm soát chặt chẽ thông qua ranh giới vận hành `[DRAFT_ONLY]` và `dispatch_mobile_charger`.
-
----
-
-# 📝 Phase 6 — REFLECTION (Cá nhân)
-*Chi tiết phản ánh tại file `03-ai-log.md`.*
