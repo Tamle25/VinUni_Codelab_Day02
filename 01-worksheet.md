@@ -63,10 +63,10 @@ Hãy sử dụng **4 Lenses** dưới đây để quét qua hoạt động vận
 ### 📝 List bài toán của tôi:
 | # | Subsidiary (VinFast/Xanh SM...) | Lens | Mô tả ngắn bài toán |
 |---|----------------------------------|------|---------------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
+| 1 | **VinFast** | Chẩn đoán lỗi xe từ mô tả tiếng Việt của khách | AI có thể tốt hơn | Khách hàng mô tả tiếng Việt (ví dụ: *"xe đi qua gờ giảm tốc kêu cụp cụp ở bánh trước"*), hệ thống tự động phân loại mã lỗi kỹ thuật ban đầu |
+| 2 | **VinFast** | Lặp lại  | So khớp hóa đơn sạc điện đối tác: Tự động đối chiếu dữ liệu sạc hằng tuần từ hàng nghìn trụ sạc liên kết ngoài với bảng kê chi tiết hóa đơn thực tế gửi về phòng tài chính kế toán |
+| 3 | **Vinhomes** | Tốn thời gian | Phân loại & Route tự động phản ánh cư dân: Hệ thống tự động đọc, phân loại mức độ khẩn cấp và chuyển giao (route) chính xác các phản ánh/khiếu nại gửi qua App Vinhomes Resident đến đúng Ban quản lý tòa nhà |
+| 4 | **Vinmec** | Pain từ người khác | Tóm tắt hồ sơ xuất viện (Discharge Summary): Trích xuất dữ liệu lâm sàng, kết quả xét nghiệm và ghi chú của bác sĩ để tự động tạo bản tóm tắt xuất viện bằng ngôn ngữ dễ hiểu cho bệnh nhân, giúp bác sĩ giảm tải thủ tục hành chính |
 | 5 | | | |
 
 ---
@@ -77,24 +77,83 @@ Chọn **top 3 bài toán** từ danh sách trên và hoàn thiện **3 Quick Pr
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ QUICK PROBLEM CARD #___                                     │
+│ QUICK PROBLEM CARD #1                                       │
 │                                                             │
-│ Bài toán (1 câu): ________________________________________  │
-│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [ ] Vinhomes  │
-│                     [ ] Vinmec   [ ] Khác (Ghi rõ)________  │
+│ Bài toán: Tự động chẩn đoán và phân loại mã lỗi kỹ thuật    │
+│ ban đầu từ mô tả tự do bằng tiếng Việt của khách hàng VinFast│
+│ Công ty thành viên: [x] VinFast  [ ] Xanh SM  [ ] Vinhomes  │
 │                                                             │
-│ Ai đang đau (Actor)? ______________________________________ │
+│ Ai đang đau? Cố vấn dịch vụ (quá tải khi tiếp nhận) và      │
+│ Khách hàng (chờ đợi xếp lịch lâu, diễn tả lỗi khó khăn).    │
 │                                                             │
-│ Workflow thủ công hiện tại (3-5 bước):                      │
-│   1. ___ ──> 2. ___ ──> 3. ___ ──> 4. ___                   │
+│ Workflow thủ công hiện hiện tại (5 bước):                   │
+│   1. Khách hàng gọi/nhắn tin mô tả hiện tượng lạ trên xe    │
+│   ──> 2. Cố vấn dịch vụ nghe/đọc và hỏi thêm thông tin      │
+│   ──> 3. Tra cứu thủ công Sổ tay Kỹ thuật / Mã lỗi DTC      │
+│   ──> 4. Nhập thông tin vào hệ thống quản lý xưởng dịch vụ  │
+│   ──> 5. Xếp lịch hẹn và gán KTV chuyên trách thích hợp     │
 │                                                             │
-│ Bước nào tốn thời gian/lỗi nhất? ___ (⏱ ___ phút/lượt)      │
-│ AI có thể nhảy vào hỗ trợ ở bước nào? _____________________ │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 2-3 (⏱ 15 phút/lượt) │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 2-3-4            │
+│ (Trích xuất triệu chứng -> Chuẩn hóa DTC -> Draft phiếu hẹn)│
 │                                                             │
-│ Đo thành công bằng gì (Metric có số)? ______________________ │
-│   VD: "Giảm thời gian soạn phản hồi từ 10 min ──> under 2 min"│
+│ Đo thành công bằng gì (Metric có số)?                       │
+│ Giảm thời gian tiếp nhận & phân loại lỗi từ 15 min ──> 2 min│
+│ Độ chính xác phân loại nhóm hệ thống lỗi đạt >= 90%.        │
 │                                                             │
-│ Quick Architecture: [ ] No AI  [ ] Rule  [ ] LLM  [ ] Agent │
+│ Quick Architecture: [x] LLM Feature (Trích xuất & Phân loại)│
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #4                                       │
+│                                                             │
+│ Bài toán: Trích xuất bệnh án điện tử để soạn thảo tóm tắt   │
+│ hồ sơ xuất viện (Discharge Summary) ngôn ngữ dễ hiểu.       │
+│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [x] Vinmec    │
+│                                                             │
+│ Ai đang đau? Bác sĩ (tốn 20-30p write-up thủ công) và       │
+│ Bệnh nhân (khó hiểu các thuật ngữ y khoa phức tạp).         │
+│                                                             │
+│ Workflow thủ công hiện tại (4 bước):                        │
+│   1. Bác sĩ mở Hồ sơ bệnh án điện tử (EMR)                  │
+│   ──> 2. Tổng hợp kết quả xét nghiệm, đơn thuốc, ghi chú   │
+│   ──> 3. Tự gõ bản Tóm tắt xuất viện và dặn dò tái khám    │
+│   ──> 4. In ấn và giải thích cho bệnh nhân                  │
+│                                                             │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 2-3 (⏱ 25 phút/ca)    │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 2-3               │
+│ (Trích xuất dữ liệu EMR -> Draft bản tóm tắt chuẩn định dạng)│
+│                                                             │
+│ Đo thành công bằng gì (Metric có số)?                       │
+│ Giảm thời gian soạn hồ sơ từ 25 phút ──> dưới 3 phút/bệnh nhân│
+│ 100% hồ sơ bắt buộc có Bác sĩ kiểm duyệt (HITL).            │
+│                                                             │
+│ Quick Architecture: [x] LLM Feature (Summarization & Draft) │
+└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #3                                       │
+│                                                             │
+│ Bài toán: Phân loại mức độ ưu tiên và tự động route phản    │
+│ ánh của cư dân trên App Vinhomes Resident đến đúng BQL Tòa  │
+│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [x] Vinhomes  │
+│                                                             │
+│ Ai đang đau? Cư dân (chờ phản hồi lâu) & Ban Quản lý (BQL)   │
+│ (mất thời gian đọc, lọc và chuyển tiếp thủ công).           │
+│                                                             │
+│ Workflow thủ công hiện tại (4 bước):                        │
+│   1. Cư dân gửi phản ánh lên App Vinhomes Resident          │
+│   ──> 2. Nhân viên CSKH Trung tâm đọc và phân loại thủ công │
+│   ──> 3. Chuyển tiếp (Route) ticket tới BQL Tòa nhà tương ứng│
+│   ──> 4. BQL Tòa nhà nhận ticket và giao kỹ thuật xử lý    │
+│                                                             │
+│ Bước nào tốn thời gian/lỗi nhất? Bước 2-3 (⏱ 30 phút/ticket) │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Bước 2-3               │
+│ (Đọc văn bản -> Phân loại mức độ P1-P4 -> Auto-route ticket)│
+│                                                             │
+│ Đo thành công bằng gì (Metric có số)?                       │
+│ Giảm thời gian routing ticket từ 30 phút ──> dưới 10 giây.   │
+│ Tỉ lệ phân loại đúng bộ phận đạt >= 95%.                    │
+│                                                             │
+│ Quick Architecture: [x] LLM Feature (Classification Router)  │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -112,18 +171,40 @@ Chọn **top 3 bài toán** từ danh sách trên và hoàn thiện **3 Quick Pr
 * 🔴 **Bottleneck:** Bước gây tắc nghẽn, tốn thời gian, hoặc sai sót nhiều nhất.
 * 🔄 **Handoff:** Điểm chuyển giao thông tin giữa người và hệ thống, hoặc giữa các bộ phận.
 * Ghi rõ thời gian vận hành trung bình: **Tổng cộng = ____ phút/lượt**.
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│ Bước 1       │     │ Bước 2       │     │ Bước 3       │     │ Bước 4       │
+│ Khách hàng   │     │ Cố vấn Dịch  │     │ Tra cứu Sổ   │     │ Nhập thông   │
+│ gọi/nhắn mô  │ ──→ │ vụ (CVDV) hỏi│ ──→ │ tay Kỹ thuật │ ──→ │ tin & tạo    │
+│ tả sự cố xe  │     │ lại chi tiết │     │ & Mã lỗi DTC │     │ Phiếu dịch vụ│
+│ Ai: Khách    │     │ Ai: CVDV     │     │ Ai: CVDV     │     │ Ai: CVDV     │
+│ ⏱ 3 phút     │    │ ⏱ 5 phút 🔴  │     │ ⏱ 5 phút 🔴 │     │ ⏱ 2 phút    │
+│ In: Lời nói  │     │ In: Note tay │     │ In: Note     │     │ In: Thông tin│
+│ Out: Raw text│     │ Out: Mô tả   │     │ Out: Mã lỗi  │     │ Out: Ticket  │
+└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
+                                                                      │
+                                                                      ▼
+                                                               ┌──────────────┐
+                                                               │ Bước 5       │
+                                                               │ Phân công    │
+                                                               │ Kỹ thuật viên│
+                                                               │ Ai: Quản xưởng│
+                                                               │ ⏱ 2 phút     │
+                                                               └──────────────┘
+🔴 = Bottlenecks
+⏱ Tổng thời gian xử lý thủ công: 17 phút/lượt tiếp nhận.
 
 ## 3.2. Problem Statement (6-field) & Metrics (15 min)
 Điền đầy đủ 6 trường thông tin của bài toán:
 
 | Field | Nội dung chi tiết |
 |---|---|
-| **1. Actor / Operator** | Ai đang thực hiện tác vụ hằng ngày? |
-| **2. Current Workflow** | Mô tả tóm tắt quy trình thủ công hiện tại và công cụ sử dụng. |
-| **3. Bottleneck** | Bước nào chậm, lỗi, hoặc cần xử lý ngôn ngữ tự động nhiều nhất? |
-| **4. Business Impact** | Tổn thất thực tế đo bằng thời gian, chi phí, hoặc SLA của Vingroup. |
-| **5. Success Metric** | AI giải quyết được thì đạt ngưỡng số mấy? (Ví dụ: *"85% vé được phân loại dưới 10s"*). |
-| **6. Operational Boundary** | AI được phép làm gì, TUYỆT ĐỐI không được làm gì, điểm nào cần duyệt? |
+| **1. Actor / Operator** |Cố vấn Dịch vụ (Service Advisor) tại các Xưởng Dịch Vụ VinFast toàn quốc. |
+| **2. Current Workflow** | Khách hàng phản ánh hiện tượng bất thường của xe điện (VF5, VF8, VF9...) qua App/Hotline/Trực tiếp. Cố vấn dịch vụ phải ghi chép lại, hỏi đi hỏi lại để làm rõ, sau đó lật giở tài liệu kỹ thuật/Database mã lỗi (DTC) thủ công để xác định nhóm hệ thống bị lỗi (Pin/Truyền động/Khung gầm/Phần mềm/Điều hòa) và lập Phiếu dịch vụ. |
+| **3. Bottleneck** | Bước 2 & 3 (mất 10 phút/lượt): Khách hàng dùng ngôn ngữ đời thường, từ tượng thanh (ví dụ: "xe bị giật khật khật khi nhấn ga", "màn hình bị treo đen thui", "sạc pin kêu o o"). Cố vấn dịch vụ mất nhiều thời gian hỏi lại và dịch từ ngôn ngữ dân dã sang từ vựng kỹ thuật chuẩn hóa để tra sổ tay. |
+| **4. Business Impact** | Vào đợt bảo dưỡng ca cao điểm, mỗi Xưởng dịch vụ tiếp nhận >50 lượt xe/ngày. Tốn ~8.3 giờ làm việc/ngày của Cố vấn dịch vụ chỉ để tiếp nhận ban đầu. Gây ùn tắc tại xưởng, khách hàng chờ đợi lâu dẫn đến chỉ số hài lòng (CSAT) giảm 12%. |
+| **5. Success Metric** |1. Giảm tổng thời gian tiếp nhận & phân loại lỗi từ 17 phút xuống dưới 3 phút/lượt (Efficiency).
+2. Tỉ lệ AI trích xuất đúng nhóm hệ thống bị lỗi và gợi ý chính xác mã DTC ban đầu đạt >= 90% (Quality). |
+| **6. Operational Boundary** |AI chỉ đóng vai trò Trợ lý đề xuất (Drafting & Suggesting). CẤM: AI tuyệt đối không được tự động xác nhận đặt lịch sửa chữa hay đưa ra kết luận bảo hành chính thức cho khách hàng mà không có Cố vấn dịch vụ kiểm duyệt (HITL). AI không được tự ý báo giá chi phí phụ tùng.|
 
 ## 3.3. Future-State Flow & AI Fit (25 min)
 * **Xác định mức AI Fit (AI-Fit Matrix):** Giải pháp thuộc nhóm nào? [ ] Rule / State-Machine [ ] LLM Feature [ ] Agentic Loop.
@@ -131,7 +212,20 @@ Chọn **top 3 bài toán** từ danh sách trên và hoàn thiện **3 Quick Pr
   * 🔵 **AI Step:** Tác vụ LLM xử lý.
   * 🟢 **Human Step (HITL):** Bước con người phê duyệt/review (Human-in-the-loop).
   * ↩️ **Fallback:** Kế hoạch dự phòng khi LLM trả về kết quả lỗi hoặc không tự tin.
-
+AI Fit: Chọn LLM Feature (Structured Information Extraction & Classification). Không dùng Agent tự trị vì quy trình tiếp nhận dịch vụ yêu cầu tính chính xác cao, tuân thủ bảng mã lỗi DTC cố định của VinFast.
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│ Bước 1       │     │ Bước 2       │     │ Bước 3       │     │ Bước 4       │
+│ Khách nhập/  │     │ 🔵 AI Extract│     │ 🔵 AI Draft  │     │ 🟢 CVDV      │
+│ nói mô tả    │ ──→ │ & Classify   │ ──→ │ Phiếu Dịch   │ ──→ │ Check, Sửa   │
+│ trên App/Web │     │ (Gemini LLM) │     │ vụ & Mã DTC  │     │ & Phê duyệt  │
+└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
+                                                                      │
+                                                                      ▼
+                                                               ↩️ Fallback:
+                                                               Nếu AI không tự tin
+                                                               (<70%), gắn tag 
+                                                               "Cần Cố vấn kiểm
+                                                               tra trực tiếp".
 ---
 
 # 💻 Phase 4 — TECHNICAL PROMPT PROTOTYPE (Nhóm, 30 min)
